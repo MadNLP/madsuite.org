@@ -1,0 +1,32 @@
+title: "MadSuite"
+intro: >
+  Welcome to {MadSuite} website! MadSuite is a suite of open-source optimization software.
+  Our mission is to deliver optimization software with GPU acceleration. Our tool encompasses
+  modeling library, optimization solvers, linear system solvers, and additional utility tools.
+
+members:
+  - name: Sungho Shin
+    url: https://shin.mit.edu
+    role: Main developer
+    description: 
+  - name: François Pacaud
+    url: https://frapac.github.io/
+    role: Main developer
+    description: 
+  - name: Alexis Montoison
+    url: https://www.linkedin.com/in/alexis-montoison/
+    role: Main developer
+    description: 
+
+packages:
+  - name: "MadNLP.jl"
+    description: "An open-source solver for nonlinear programming problems."
+    url: "https://github.com/MadSuite/MadNLP.jl"
+    
+news:
+  - date: "2025-06-17"
+    entry: "MadSuite website launched!"    
+
+links:
+  - name: "MadSuite"
+    url: "https://github.com/MadNLP"
