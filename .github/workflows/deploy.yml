@@ -20,6 +20,7 @@ jobs:
         run: |
           git config --global user.email "github.com"
           git config --global user.name "Github"
+          echo $GITHUB_TOKEN
           python -m venv venv
           source venv/bin/activate
           pip install .
