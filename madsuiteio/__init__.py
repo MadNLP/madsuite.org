@@ -5,11 +5,11 @@ import setuptools
 import yaml
 import shutil
 import importlib.resources as pkg_resources
+import subprocess
 from livereload import Server, shell
 from pybtex.database import parse_file
 from pybtex.plugin import find_plugin
 from livereload import Server
-
 
 # Constants
 BUILD_DIR = '_build'
@@ -41,6 +41,7 @@ def build():
     MEMBERS = DATA.get('members', [])
     PACKAGES = DATA.get('packages', [])
     NEWS = DATA.get('news', [])
+    VIDEOS = DATA.get('videos', [])
     LINKS = DATA.get('links', [])
     TEMPLATE = open(
         pkg_resources.files(__package__).joinpath('data/template.html'),
@@ -51,7 +52,7 @@ def build():
     members_html = "\n".join([
         f"""
         <li>
-            <a href="{member['url']}"><strong>{member['name']}</strong></a> ({member['role']}): {member['description']}
+            <a href="{member['url']}"><strong>{member['name']}</strong></a> (<a href="https://github.com/{member['github']}">@{member['github']}</a>): {member['description']}
         </li>
         """ for member in MEMBERS
     ])
@@ -59,9 +60,17 @@ def build():
     news_html = "\n".join([
         f"""
         <li>
-        <strong>{news['date']}</strong>: {news['entry']} 
+        {news['entry']} ({news['date']})
         </li>
         """ for news in NEWS
+    ])
+
+    resources_html = "\n".join([
+        f"""
+        <li>
+        {resource['description']} [ <a href="{resource['url']}">Link</a> ]
+        </li>
+        """ for resource in DATA.get('resources', [])
     ])
 
     packages_html = "\n".join([
@@ -70,6 +79,17 @@ def build():
             <strong><a href="{pkg['url']}">{pkg['name']}</a></strong>: {pkg['description']}
         </li>
         """ for pkg in PACKAGES
+    ])
+
+    videos_html = "\n".join([
+        f"""
+        <li>
+        {video['presenter']}, {video['description']}, {video['date']}<br>
+        <div class="ratio ratio-16x9">
+        <iframe src="https://www.youtube.com/embed/{video['youtube']}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="max-width: 800px; max-height: 450px"></iframe>
+       </div>
+        </li>
+        """ for video in DATA.get('videos', [])
     ])
     
     # Generate HTML list for publications
@@ -85,17 +105,21 @@ def build():
 
     # Combine all content
     content = f"""
-    <h1 class="mb-4">Home</h1>
+    <h1 class="mb-4">MadSuite: An Optimization Software Suite for GPUs</h1>
     <p>
         {INTRO}
     </p>
-    <h2 class="mt-5">Members</h2>
-    <ul>
-        {members_html}
-    </ul>
     <h2 class="mt-5">News</h2>
     <ul>
         {news_html}
+    </ul>
+    <h2 class="mt-5">Useful Resources</h2>
+    <ul>
+        {resources_html}
+    </ul>
+    <h2 class="mt-5">Members</h2>
+    <ul>
+        {members_html}
     </ul>
     <h2 class="mt-5">Packages</h2>
     <ul>
@@ -104,6 +128,10 @@ def build():
     <h2 class="mt-5">Publications</h2>
     <ul>
         {publications_html}
+    </ul>
+    <h2 class="mt-5">Videos</h2>
+    <ul>
+        {videos_html}
     </ul>
     """
 
@@ -120,9 +148,38 @@ def serve():
 
     server = Server()
     server.watch(
-        './*',
+        pkg_resources.files(__package__),
         build,
     )
     server.serve(root=BUILD_DIR, port=8000) 
 
+def deploy():
+    print("Running initial build...")
+    build()
     
+    """Deploy the contents of _build to the gh-pages branch."""
+    # Define the branch name
+    branch_name = "gh-pages"
+
+    # Ensure the _build directory exists
+    if not os.path.exists(BUILD_DIR):
+        raise Exception(f"The build directory {BUILD_DIR} does not exist. Run the build process first.")
+
+    # Initialize a new Git repo inside the _build directory
+    subprocess.run(['git', 'init'], cwd=BUILD_DIR, check=True)
+
+    # Set up the remote repository (assumes origin is set up)
+    subprocess.run(['git', 'remote', 'add', 'origin', 'git@github.com:MadNLP/madsuite.github.io.git'], cwd=BUILD_DIR, check=True)
+
+    # Checkout a new branch (or switch to it if it exists)
+    subprocess.run(['git', 'checkout', '-B', branch_name], cwd=BUILD_DIR, check=True)
+
+    # Add all the files to staging area
+    subprocess.run(['git', 'add', '.'], cwd=BUILD_DIR, check=True)
+
+    # Commit the changes
+    subprocess.run(['git', 'commit', '-m', 'Deploy to GitHub Pages'], cwd=BUILD_DIR, check=True)
+    # Force push to the gh-pages branch
+    subprocess.run(['git', 'push', '--force', '--set-upstream', 'origin', branch_name], cwd=BUILD_DIR, check=True)
+
+    print("Successfully deployed to GitHub Pages.")
