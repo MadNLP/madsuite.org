@@ -18,6 +18,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
         run: |
+          git config --global user.email "github.com"
+          git config --global user.name "Github"
           python -m venv venv
           source venv/bin/activate
           pip install .
