@@ -20,7 +20,7 @@ jobs:
         run: |
           git config --global user.email "github.com"
           git config --global user.name "Github"
-          python -m venv venv
+          python3 -m venv venv
           source venv/bin/activate
-          pip install .
-          python -m madsuiteio deploy
+          pip3 install .
+          python3 -m madsuiteio deploy
