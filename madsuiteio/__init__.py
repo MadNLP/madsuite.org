@@ -85,9 +85,17 @@ def build():
         f"""
         <li>
         {video['presenter']}, {video['description']}, {video['date']}<br>
-        <div class="ratio ratio-16x9">
-        <iframe src="https://www.youtube.com/embed/{video['youtube']}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="max-width: 800px; max-height: 450px"></iframe>
-       </div>
+        <div style="max-width: 800px">
+        <div style="aspect-ratio: 16 / 9; width: 100%;">
+        <iframe
+        src="https://www.youtube.com/embed/{video['youtube']}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="width: 100%; height: 100%;"
+        ></iframe>
+        </div>
+        </div>
         </li>
         """ for video in DATA.get('videos', [])
     ])

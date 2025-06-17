@@ -1,29 +1,26 @@
-# name: deploy
+name: deploy
 
-# on:
-#   push:
-#     branches: ["main"]
-#   schedule:
-#     - cron: '0 * * * *'
+on:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 * * * *'
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: write
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
-#       - name: Build and deploy website
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
-#         run: |
-#           git config --global user.email "github.com"
-#           git config --global user.name "Github"
-#           python -m venv venv
-#           source venv/bin/activate
-#           pip install .
-#           python -m madsuiteio deploy
-          
-
-          
+jobs:
+  build:
+    runs-on: self-hosted
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build and deploy website
+        env:
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/madnlp"
+        run: |
+          git config --global user.email "github.com"
+          git config --global user.name "Github"
+          python -m venv venv
+          source venv/bin/activate
+          pip install .
+          python -m madsuiteio deploy
