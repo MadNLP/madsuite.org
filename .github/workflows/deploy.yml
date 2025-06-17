@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Build and deploy website
         env:
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/madnlp"
+          GIT_SSH_COMMAND: "ssh -i ~/.ssh/madnlp"
         run: |
           git config --global user.email "github.com"
           git config --global user.name "Github"
