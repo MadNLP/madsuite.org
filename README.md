@@ -18,8 +18,4 @@ To serve the website locally, run:
 ```bash
 python -m madsuiteio serve
 ```
-To deploy the website, run:
-
-```bash
-python -m madsuiteio deploy
-```
+To deploy the website, push commits to this repository. Direct deployment to `gh-pages` is disabled by the repository rule
