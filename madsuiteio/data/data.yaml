@@ -6,6 +6,7 @@ intro: >
   Our software tools are embedded in the {Julia Language}, which is host a variety of excellent libraries for optimization, such as {JuMP.jl} and {JuliaSmoothOptimizers}, as well as extensive support for GPU programming, such as {CUDA.jl} and {KernelAbstractions.jl}.
   We employ the latest advancements in GPU computing, such as NVIDIA's {CUDSS} library, to provide high-performance solutions for large-scale nonlinear optimization problems.
   The performance of GPU-accelerated optimization solvers is <a href="https://arxiv.org/abs/2405.14236">successfully demonstrated</a> on the AC optimal power flow problems, optimal control problems, and other large-scale nonlinear optimization problems.
+domain: "madsuite.org"
 
 members:
   - name: Sungho Shin

@@ -43,6 +43,8 @@ def build():
     NEWS = DATA.get('news', [])
     VIDEOS = DATA.get('videos', [])
     LINKS = DATA.get('links', [])
+    DOMAIN = DATA.get('domain', '')
+    
     TEMPLATE = open(
         pkg_resources.files(__package__).joinpath('data/template.html'),
         'r', encoding='utf-8').read()
@@ -148,6 +150,11 @@ def build():
         shutil.rmtree(BUILD_DIR)
     os.makedirs(BUILD_DIR)
     generate_html(os.path.join(BUILD_DIR, "index.html"), content, TEMPLATE, TITLE, YEAR, LINKS)
+
+    # Create a CNAME file
+    cname_path = os.path.join(BUILD_DIR, "CNAME")
+    with open(cname_path, "w") as f:
+        f.write(DOMAIN)
 
 def serve():
     # Do initial build before starting
