@@ -38,6 +38,7 @@ def build():
         encoding='utf-8'))
     TITLE = DATA.get('title', 'MadSuite')
     INTRO = DATA.get('intro', '')
+    DESCRIPTION = DATA.get('description', '')
     MEMBERS = DATA.get('members', [])
     PACKAGES = DATA.get('packages', [])
     NEWS = DATA.get('news', [])
@@ -62,7 +63,7 @@ def build():
     news_html = "\n".join([
         f"""
         <li>
-        {news['entry']} ({news['date']})
+        {news['entry']} (<a href="{news['link']}">{news['date']}</a>)
         </li>
         """ for news in NEWS
     ])
@@ -119,6 +120,10 @@ def build():
     <p>
         {INTRO}
     </p>
+    <h2 class="mt-5">What's MadSuite?</h2>
+    <p>
+        {DESCRIPTION}
+    </p>
     <h2 class="mt-5">News</h2>
     <ul>
         {news_html}
@@ -155,6 +160,11 @@ def build():
     cname_path = os.path.join(BUILD_DIR, "CNAME")
     with open(cname_path, "w") as f:
         f.write(DOMAIN)
+
+    # Move assets to the build directory
+    assets_src = pkg_resources.files(__package__).joinpath('assets')
+    assets_dest = os.path.join(BUILD_DIR, 'assets')
+    shutil.copytree(assets_src, assets_dest)
 
 def serve():
     # Do initial build before starting

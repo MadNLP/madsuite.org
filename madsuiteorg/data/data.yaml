@@ -1,11 +1,21 @@
 title: "MadSuite"
 intro: >
   Welcome to {MadSuite} website!
+  Our mission is to deliver optimization software with state-of-the-art GPU acceleration.
+  The performance of GPU-accelerated optimization solvers is <a href="https://arxiv.org/abs/2405.14236">successfully demonstrated</a> on the AC optimal power flow problems, optimal control problems, and other large-scale nonlinear optimization problems.
+  For large-scale problems, using GPU acceleration often enables more than an order of magnitude speed-up, as demonstrated with the performance of ExaModels.jl and MadNLP.jl running on GPUs along with CUDSS compared to the state-of-the-art tools on CPUs for solving large AC optimal power flow problems.
+  <div style="max-width: 800px">
+  <figure>
+  <img src="assets/time-to-solution-opf.png" style="width: 100%">
+  <figcaption>Figure 1: Solution time for AC optimal power flow for the 70k bus system running on different hardware</figcaption>
+  </figure>
+  </div>
+
+description: >
   MadSuite is a suite of open-source optimization software encompassing algebraic modeling systems, optimization solvers, linear solvers, and domain-specific modeling libraries.
-  Our mission is to deliver optimization software with state-of-the-art GPU acceleration, pushing the boundaries of what is computationally possible and empowering the optimizers with unprecedented speed and efficiency.
   Our software tools are embedded in the {Julia Language}, which is host a variety of excellent libraries for optimization, such as {JuMP.jl} and {JuliaSmoothOptimizers}, as well as extensive support for GPU programming, such as {CUDA.jl} and {KernelAbstractions.jl}.
   We employ the latest advancements in GPU computing, such as NVIDIA's {CUDSS} library, to provide high-performance solutions for large-scale nonlinear optimization problems.
-  The performance of GPU-accelerated optimization solvers is <a href="https://arxiv.org/abs/2405.14236">successfully demonstrated</a> on the AC optimal power flow problems, optimal control problems, and other large-scale nonlinear optimization problems.
+  
 domain: "madsuite.org"
 
 members:
@@ -34,26 +44,27 @@ packages:
   - name: "MadNLP.jl"
     url: "https://github.com/MadNLP/MadNLP.jl"
     description: A nonlinear programming solver based on the filter line-search interior point method (as in Ipopt) that can handle/exploit diverse classes of data structures, either on host or device memories.
-  - name: "ExaModels.jl"
-    url: "https://github.com/exanauts/ExaModels.jl"
-    description: An algebraic modeling and automatic differentiation tool in Julia Language, specialized for SIMD abstraction of nonlinear programs.
-  - name: "CUDSS.jl"
-    url: "https://github.com/exanauts/CUDSS.jl"
-    description: CUDSS.jl is a Julia interface to the NVIDIA cuDSS library. NVIDIA cuDSS provides three factorizations (LDU, LDLᵀ, LLᵀ) for solving sparse linear systems on GPUs.
   - name: "MadIPM.jl"
     url: "https://github.com/MadNLP/MadIPM.jl"
     description: MadIPM.jl is an extension of MadNLP.jl for linear and quadratic programming. It implements the Mehrotra predictor-corrector method, leading to faster convergence than the default filter line-search algorithm used in MadNLP.
+  - name: "ExaModels.jl"
+    url: "https://github.com/exanauts/ExaModels.jl"
+    description: An algebraic modeling and automatic differentiation tool in Julia Language, specialized for SIMD abstraction of nonlinear programs.
   - name: "ExaModelsPower.jl"
     url: "https://github.com/exanauts/ExaModelsPower.jl"
     description: ExaModelsPower.jl is a Julia package for modeling and solving power systems optimization problems, built on top of ExaModels.jl.
   - name: "ExaModelsExamples.jl"
     url: "https://github.com/exanauts/ExaModelsExamles.jl"
     description: A collection of examples demonstrating the use of ExaModels.jl for various optimization problems, including power systems, optimal control problems, and COPS benchmark problems.
+  - name: "CUDSS.jl"
+    url: "https://github.com/exanauts/CUDSS.jl"
+    description: CUDSS.jl is a Julia interface to the NVIDIA cuDSS library. NVIDIA cuDSS provides three factorizations (LDU, LDLᵀ, LLᵀ) for solving sparse linear systems on GPUs.
     
 news:
   - date: "June 2025"
-    entry: "MadSuite website launched!"    
-
+    entry: "MadSuite will be presented at IEEE PowerTech 2025 in the tutorial session on GPU-Accelerated Optimization for Power Systems with MadNLP and ExaModels."
+    link: "https://2025.ieee-powertech.org/tutorials/#1744358367373-8b3025fb-3285"
+    
 videos:
   - date: "April 2024"
     presenter: "Sungho Shin"
