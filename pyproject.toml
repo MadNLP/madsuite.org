@@ -1,7 +1,7 @@
 [project]
-name = "madsuiteio"
+name = "madsuiteorg"
 version = "0.1.0"
-description = "A script generating madsuite.github.io"
+description = "A script generating madsuite.org"
 authors = [
     { name = "Sungho Shin", email = "sushin@mit.edu" },
     { name = "François Pacaud", email = "francois.pacaud@minesparis.psl.eu" },
