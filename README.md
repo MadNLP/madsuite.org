@@ -1,4 +1,4 @@
-# madsuite.github.io
+# madsuite.org
 
 ## Installation
 To install the dependency, run:
