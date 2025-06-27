@@ -39,6 +39,8 @@ resources:
     url: "https://discourse.julialang.org/t/examodels-jl-and-madnlp-jl-on-gpus/111377"
   - description: "Julia Discourse: AC Optimal Power Flow in various nonlinear optimization frameworks"
     url: "https://discourse.julialang.org/t/ac-optimal-power-flow-in-various-nonlinear-optimization-frameworks/78486/81"
+  - description: "PowerTech 2025: Tutorial on GPU-Accelerated Optimization for Power Systems with MadNLP and ExaModels"
+    url: "https://madsuite.org/powertech2025" 
     
 packages:
   - name: "MadNLP.jl"
